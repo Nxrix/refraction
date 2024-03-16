@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Refraction</title>
+</head>
+<style>
+:root {
+  --backgroundPage: #10161f;
+  --backgroundContent: #1d2633;
+  --backgroundContentSecond: #fff;
+  --textPrimary: #fff;
+  --textInvert: #000;
+  --textSecondary: #8994a3;
+  --accentBlue: #45aef5;
+  --borderPrimary: #242e3b;
+  --blueGradient: linear-gradient(0deg, #1ac9ff, #0098ea);
+  --grayGradient: linear-gradient(90deg, transparent, #1d2633 50%, transparent);
+  --contentGradient: linear-gradient(90deg, #1d2633, transparent 50%, #1d2633);
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/font/Montserrat.ttf") format("truetype");
+}
+* {
+  padding: 0;
+  margin: 0;
+  vertical-align: text-top;
+  font-family: Montserrat;
+  /*text-align: auto !important;
+  unicode-bidi: plaintext !important;*/
+  color: var(--textPrimary);
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+img {
+  pointer-events: none;
+}
+textarea, input {
+  -webkit-user-select: auto;
+  -khtml-user-select: auto;
+  -moz-user-select: auto;
+  -o-user-select: auto;
+  user-select: auto;
+}
+::selection {
+  background-color: var(--textPrimary);
+  color: var(--textInvert);
+}
+::-webkit-selection {
+  background-color: var(--textPrimary);
+  color: var(--textInvert);
+}
+::-webkit-scrollbar-corner {
+  background-color: var(--backgroundPage);
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background-color: var(--backgroundContent);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--borderPrimary);
+  border-radius: 10px;
+}
+button:focus, input:focus, textarea:focus {
+  outline:0;
+}
+html {
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  background-color: var(--backgroundPage);
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+a {
+  text-decoration: none;
+}
+h1 {
+  text-align: center;
+  margin: 25px 0;
+}
+#container {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+.banner {
+  background-image: url("./assets/img/png/banner.png");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 200px;
+}
+#nft_info {
+  background-color: var(--backgroundContent);
+  width: calc(100% - 68px);
+  display: flex;
+  flex-direction: row;
+  padding: 20px 24px;
+  gap: 24px;
+  border-radius: 12px 12px;
+  margin: 10px;
+}
+#nft_info img {
+  display: flex;
+  flex-direction: row;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--backgroundContentTint);
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+#nft_info div {
+  color: var(--textSecondary);
+}
+#nft_container {
+  width: calc(100% - 10px);
+  margin: 5px 5px;
+}
+#nft_container a {
+  display: block;
+}
+#nft_item {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  background-color: var(--backgroundContent);
+  margin: 5px;
+  width: calc(100%/3 - 10px);
+  border-radius: 15px;
+  color: var(--textPrimary);
+  text-wrap: nowrap;
+  z-index: 1;
+  transition: transform 0.1s ease;
+}
+#nft_item:hover {
+  transform: scale(1.05);
+  z-index: 2;
+}
+#nft_item img {
+  width: 100%;
+}
+#nft_item .sale {
+  position: absolute;
+  right: 0;
+  width: 40px;
+  aspect-ratio: 1/1;
+}
+#nft_item .text {
+  width: calc(100% - 15px);
+  padding: 7.5px 0 0 7.5px;
+  font-weight: 500;
+}
+#nft_item .owner {
+  color: var(--textSecondary);
+  width: calc(100% - 15px);
+  padding: 0 0 0 7.5px;
+  font-weight: 500;
+  font-size: smaller;
+}
+#nft_item .price {
+  fill: var(--textSecondary);
+  color: var(--textSecondary);
+  width: calc(100% - 30px);
+  padding: 0 0 7.5px 7.5px;
+  font-weight: 500;
+  font-size: smaller;
+}
+#nft_item svg {
+  margin-right: 3px;
+}
+hr {
+  background-color: var(--backgroundContent);
+  height: 1px;
+  margin: 30px 0;
+  border: 0;
+}
+.icon {
+  width: 24px;
+  height: 24px;
+  margin: 0 10px;
+  border: none;
+}
+.icon-list {
+  height: 50px;
+}
+.fontW1 {
+  font-weight: 900;
+}
+.fontW2 {
+  font-weight: 800;
+}
+.fontW3 {
+  font-weight: 700;
+}
+.fontW4 {
+  font-weight: 600;
+}
+.fontW5 {
+  font-weight: 500;
+}
+.fontW6 {
+  font-weight: 400;
+}
+.fontW7 {
+  font-weight: 300;
+}
+.fontW8 {
+  font-weight: 200;
+}
+.fontW9 {
+  font-weight: 100;
+}
+</style>
+<body>
+  <div class="banner"></div>
+  <h1>Refraction</h1>
+  <div id="container">
+    <a href="https://getgems.io/refraction" target="_blank" id="nft_info">
+      <img src="./assets/img/png/logo.png">
+      <div>A collection with procedural NFTs containing a unique GLSL code directly rendered on the GPU that allows development of more features for the owners in the future.
+        <br>
+        Each NFT sold helps me make better things!
+      </div>
+    </a>
+    <div id="nft_container"></div>
+  </div>
+  <hr>
+  <div>
+    <p style="margin-left:10%">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="width:32px;height:32px;margin-right:8px" viewBox="0 0 64 64"><path fill-rule="evenodd" d="M20.516755 4.4812845c-.8049.530751-.9419 1.123121-.5855 2.533121 1.1239 4.4464995 2.7866 6.7676295 5.6682 7.9122995 1.5672.6223 2.2808.7188 5.9503.8043l3.4325.0799-1.4638 1.1723c-.805.6448-1.4636 1.2227-1.4636 1.2843 0 .0617.3739.875.8308 1.8075.7241 1.4777.8646 1.6883 1.0937 1.6388.1446-.0313.9273-.2613 1.739-.5111 1.8759-.5774 2.8166-.6153 3.1991-.1292.5465.6948.5095.9062-.8651 4.9592-.8281 2.4415-1.4002 3.933-1.6171 4.2157-.7044.9181-.2329.8746-9.4791.8748-9.448.0002-8.4038.1208-10.2763-1.1868-1.2476-.8712-1.64699-1.0631-2.21249-1.0625-.74012.0008-1.31862.4394-2.59425 1.9669l-.33812.4047.44325.7297c1.2185 2.0058 1.655 3.4656 1.3305 4.4488-.164.497-2.48088 3.9873-5.9413804 8.9505-1.2915 1.8523-1.520871 2.2547-1.765746 3.0972-.25775.8866-.173375 1.9121.221375 2.6887.16275.3203 1.589251 2.3265 3.170121 4.4583l2.8742504 3.8761 3.10338.0017 3.10351.0019-.5953-.8437c-2.364-3.351-4.16184-6.1807-4.42021-6.9572-.559-1.6796-.33238-2.6812 1.04912-4.6366.38863-.55 1.16009-1.6622 1.71449-2.4715.6536-.9541 1.195924-1.473966 1.5265-1.8241.365775-.353675.75622-.713323 1.183903-.239339.330272.366027.194834.627839-.785103 1.856939-2.4048 3.5321-2.72141 4.0226-3.02629 4.6888-.286.6247-.31012.7915-.233 1.614.0975 1.0415.36113 1.5297 2.42909 4.5002.6222.8938 1.5687 2.2854 2.103 3.0926l.9719 1.4675 3.292.0013 3.292.0011-.4349-.7812c-.3966-.7127-3.5145-6.9147-4.013-7.9829l-.2107-.4515 1.2377-2.0485c2.2454-3.7156 2.4608-4.0304 3.0814-4.5028 1.1728-.8928 2.282-1.0825 6.6305-1.1337l3.125-.0369.694.3409c1.0524.5167 1.8793 1.7535 4.62 6.9091.3654.6875.76 1.4209.8769 1.6296.1169.2088.8887 1.615 1.7152 3.125.8267 1.51 1.7772 3.2235 2.1123 3.8079l.6092 1.0625 3.1662.0334c1.7412.0184 3.1456-.0098 3.1207-.0625-.0249-.0528-.2461-.4896-.4916-.9709-1.8121-3.5521-7.6568-15.3037-7.9818-16.0487-.3496-.8015-.3922-1.0107-.3211-1.5798.0451-.3609.1596-.7607.2546-.8887.1669-.225.1922-.2225.7592.0746.7092.3715 4.9903 3.1762 5.0862 3.3321.0374.0608-.3249 1.0105-.805 2.1105s-.8994 2.1125-.9317 2.25c-.047.1996.1863.4264 1.1581 1.125.6692.4813 1.6569 1.1984 2.1947 1.5938.5378.3953 1.0054.7187 1.0392.7187.0828 0 2.9873-5.8106 3.5301-7.0625.8284-1.9106.5677-3.29-.8238-4.3599-.3886-.2987-2.3941-1.6001-4.4566-2.892-5.981-3.746-6.1711-3.8926-6.2779-4.8398-.0768-.6824.2642-1.9637 1.5063-5.6583 1.1627-3.4586 1.2184-3.5866 1.7271-3.9741.6981-.5318 1.4228-.6478 5.1695-.8268 1.3063-.0625 2.5719-.1757 2.8125-.2517.2406-.076.704-.3344 1.0298-.5741.9625-.7085 1.4777-1.7178 1.4607-2.8607-.0197-1.32-.7232-2.4047-1.9241-2.9666-.8603-.4026-1.7035-.5629-6.4414-1.2242-4.7882-.66842-6.5117-.89517-9.4375-1.2418l-2.875-.34075-.0844-.49462c-.0465-.272-.1432-1.029-.2151-1.68213-.286-2.6019995-1.2212-4.2148695-2.953-5.0928695-1.6169-.819751-2.81-.222126-2.81 1.40762 0 .84963.2676 1.25238 1.1168 1.68113.4046.20425.8478.52887.985.7215.323.45362.612 1.3552495.8185 2.5537495l.1651.9585-1.1989.09025c-1.5887.1195-4.2075-.0089-5.446-.267-2.5537-.53238-3.5875-1.65525-4.6719-5.0746295-.2762-.87125-.5931-1.75975-.704-1.97425-.4176-.807621-1.6108-1.135246-2.3527-.646121zm26.5827 12.2661205c-.3973.1603-.6696.6226-.6696 1.137 0 .9224.9406 1.5489 1.7918 1.1933.241-.1008.4988-.2967.5732-.4355.255379-.393797.313337-1.114031-.0252-1.5297-.3465-.4512-1.0667-.6087-1.6702-.3651z" clip-rule="evenodd"/></svg>
+      <span class="fontW3">Nxrix</span><br><br><span class="fontW5">©2024 All rights reserved.</span><br><!--<span class="fontW6">You are not allowed to use or copy any part of this website!</span>-->
+    </p><br>
+    <div class="icon-list" style="margin-left:calc(10% - 10px);font-size:0;">
+      <a href="https://github.com/nxrix" target="_blank">
+        <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z" clip-rule="evenodd"/></svg>
+      </a>
+      <a href="https://t.me/Nxrix" target="_blank">
+        <svg class="icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M41.4193 7.30899C41.4193 7.30899 45.3046 5.79399 44.9808 9.47328C44.8729 10.9883 43.9016 16.2908 43.1461 22.0262L40.5559 39.0159C40.5559 39.0159 40.3401 41.5048 38.3974 41.9377C36.4547 42.3705 33.5408 40.4227 33.0011 39.9898C32.5694 39.6652 24.9068 34.7955 22.2086 32.4148C21.4531 31.7655 20.5897 30.4669 22.3165 28.9519L33.6487 18.1305C34.9438 16.8319 36.2389 13.8019 30.8426 17.4812L15.7331 27.7616C15.7331 27.7616 14.0063 28.8437 10.7686 27.8698L3.75342 25.7055C3.75342 25.7055 1.16321 24.0823 5.58815 22.459C16.3807 17.3729 29.6555 12.1786 41.4193 7.30899Z" fill="currentColor"/>
+        </svg>
+      </a>
+      <a href="https://x.com/ZNxrix" target="_blank">
+        <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M12.186 8.672 18.743.947h-2.927l-5.005 5.9-4.44-5.9H0l7.434 9.876-6.986 8.23h2.927l5.434-6.4 4.82 6.4H20L12.186 8.672Zm-2.267 2.671L8.544 9.515 3.2 2.42h2.2l4.312 5.719 1.375 1.828 5.731 7.613h-2.2l-4.699-6.237Z"/></svg>
+      </a>
+      <a href="https://discord.gg/5gukKTggNZ" target="_blank">
+        <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 21 16"><path d="M16.942 1.556a16.3 16.3 0 0 0-4.126-1.3 12.04 12.04 0 0 0-.529 1.1 15.175 15.175 0 0 0-4.573 0 11.585 11.585 0 0 0-.535-1.1 16.274 16.274 0 0 0-4.129 1.3A17.392 17.392 0 0 0 .182 13.218a15.785 15.785 0 0 0 4.963 2.521c.41-.564.773-1.16 1.084-1.785a10.63 10.63 0 0 1-1.706-.83c.143-.106.283-.217.418-.33a11.664 11.664 0 0 0 10.118 0c.137.113.277.224.418.33-.544.328-1.116.606-1.71.832a12.52 12.52 0 0 0 1.084 1.785 16.46 16.46 0 0 0 5.064-2.595 17.286 17.286 0 0 0-2.973-11.59ZM6.678 10.813a1.941 1.941 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.919 1.919 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Zm6.644 0a1.94 1.94 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.918 1.918 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Z"/></svg>
+      </a>
+    </div>
+  </div>
+</body>
+<script>
+
+window.onload = async () => {
+  const nft_json = await fetch("https://tonapi.io/v2/nfts/collections/0:fcb17b2c6f59fbb7a418c6a6bce2452de7aa67c3b3fc3681c63c9fa3f6a52d96/items");
+  const nft_data = await nft_json.json();
+  console.log(nft_data);
+  const nft_container = document.getElementById("nft_container");
+  //nft_data.nft_items[i]. metadata.image
+  for (var i=0;i<nft_data.nft_items.length;i++) {
+    var ton = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16"><path fill="#8994a3" fill-rule="evenodd" d="M3.275 1.5h9.45c1.686 0 2.745 1.818 1.914 3.285l-5.334 9.412a1.5 1.5 0 0 1-2.61 0L1.361 4.785C.531 3.318 1.59 1.5 3.275 1.5M7.25 12.15V3H3.92c-.581 0-.873 0-1.043.122a.65.65 0 0 0-.266.453c-.024.208.118.463.401.971zM8.75 3v9.15l4.238-7.604c.284-.508.426-.763.402-.97a.65.65 0 0 0-.267-.454C12.954 3 12.664 3 12.08 3z" clip-rule="evenodd"></path></svg>`
+    var address = nft_data.nft_items[i].address;
+    var img = nft_data.nft_items[i].previews[2].url;
+    var name = nft_data.nft_items[i].metadata.name;
+    var owner = nft_data.nft_items[i].sale!=null?nft_data.nft_items[i].sale.owner.address:nft_data.nft_items[i].owner.name||nft_data.nft_items[i].owner.address;
+    var price = nft_data.nft_items[i].sale!=null?ton+nft_data.nft_items[i].sale.price.value/10e8:"Not for sale";
+    nft_container.innerHTML += `<div id="nft_item">
+      <a href="https://tonviewer.com/${address}" target="_blank">
+        ${nft_data.nft_items[i].sale!=null?"<img class=\"sale\" src=\"./assets/img/svg/sale-badge.svg\">":""}
+        <img src="${img}">
+        <div class="text">${name}</div>
+      </a>
+      ${""/*<a href="https://tonviewer.com/${owner}" target="_blank"><div class="owner">${owner}</div></a>*/}
+      <div class="price">${price}</div>
+    </div>`;
+  }
+}
+
+</script>
+</html>
