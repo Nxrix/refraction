@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+
+<body>
+
+</body>
+<script>
+const bounceable_tag = 0x11;
+const non_bounceable_tag = 0x51;
+
+const hexToBytes = (hex) => {
+  const bytes = [];
+  for (let c = 0; c < hex.length; c += 2) {
+    bytes.push(parseInt(hex.substr(c, 2), 16));
+  }
+  return bytes;
+}
+
+function base64EncodeTon(input) {
+  const keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+  const keyStrUrlSafe = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+  let output = "";
+  let chr1, chr2, chr3;
+  let enc1, enc2, enc3, enc4;
+  let i = 0;
+
+  while (i < input.length) {
+    chr1 = input[i++];
+    chr2 = i < input.length ? input[i++] : Number.NaN;
+    chr3 = i < input.length ? input[i++] : Number.NaN;
+
+    enc1 = chr1 >> 2;
+    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+    enc4 = chr3 & 63;
+
+    if (isNaN(chr2)) {
+      enc3 = enc4 = 64;
+    } else if (isNaN(chr3)) {
+      enc4 = 64;
+    }
+    output +=
+      keyStr.charAt(enc1) + keyStr.charAt(enc2) +
+      keyStr.charAt(enc3) + keyStr.charAt(enc4);
+  }
+  output = output.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  return output;
+}
+
+function convertRawToOtherTypes(rawAddress) {
+  const parts = rawAddress.split(':');
+  if (parts.length !== 2) {
+    throw new Error('Invalid TON address format');
+  }
+  const workchain = parseInt(parts[0], 16);
+  const addressHex = parts[1];
+  const addressBytes = hexToBytes(addressHex);
+  const taggedAddressBytes = [workchain & 0xFF, ...addressBytes];
+  const bounceableAddress = [bounceable_tag, ...taggedAddressBytes];
+  const nonBounceableAddress = [non_bounceable_tag, ...taggedAddressBytes];
+  const bounceableAddressBase64 = base64EncodeTon(bounceableAddress);
+  const nonBounceableAddressBase64 = base64EncodeTon(nonBounceableAddress);
+  return {
+    bounceableAddressBase64,
+    nonBounceableAddressBase64
+  };
+}
+
+const rawAddress = '0:ee5bd18b432c40715ea9701627d2fec7ba383c8a6fd10d03438cf242352a3da5';
+const { bounceableAddressBase64, nonBounceableAddressBase64 } = convertRawToOtherTypes(rawAddress);
+console.log(`Converted Bounceable: ${bounceableAddressBase64}`);
+console.log(`Converted Non-Bounceable: ${nonBounceableAddressBase64}`);
+console.log(`Real address
+Bounceable:
+EQDuW9GLQyxAcV6pcBYn0v7Hujg8im_RDQNDjPJCNSo9pRW5
+Non-bounceable:
+UQDuW9GLQyxAcV6pcBYn0v7Hujg8im_RDQNDjPJCNSo9pUh8`)
+</script>
+</html>
